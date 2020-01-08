@@ -1,8 +1,11 @@
-import java.util.*;
-public  class GenericGraph  {
-   //use this inner static class to implement graph 
-	//it works for bidirectional also
-	//just writing to keep in mind also can use graph.entrySet.stream.forEach((T v)->{})
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.HashSet;
+
+
+
+public class BFSGraph {
+ 
 	static class Graph<T>{
 		HashMap<T,HashSet<T>> graph=new HashMap<>();
 		 void addVertex(T v) {
@@ -10,7 +13,7 @@ public  class GenericGraph  {
 			 graph.put(v,new HashSet<T>());
 			 }
 		 
-		 void addEdge(T source, T destination,boolean bidirectional) {// tells if we want a directed or undirected graph
+		 void addEdge(T source, T destination,boolean bidirectional) {// tells if we want a direacted or undirected graph
 			 if(!graph.containsKey(source)) {addVertex(source);}
 			 if(!graph.containsKey(destination)) {addVertex(destination);}
 			 if(bidirectional) {
@@ -37,8 +40,8 @@ public  class GenericGraph  {
 		 }
 		 
 		 boolean hasEdge(T s,T d,boolean bidirectional) {
-			 if(bidirectional&&(graph.containsKey(s)&&graph.containsKey(d))) {return graph.get(s).contains(d)||graph.get(d).contains(s);}
-			 else return graph.get(s).contains(d)&&graph.containsKey(s);
+			 if(bidirectional) {return graph.get(s).contains(d)||graph.get(d).contains(s);}
+			 else return graph.get(s).contains(d);
 					 }
 		 
 		 boolean hasVertex(T v) {
@@ -57,10 +60,31 @@ public  class GenericGraph  {
 			 return st.toString();
 		 }
 		 
+		 void Bfs(T v){
+			 ArrayDeque<T> q=new ArrayDeque<T>();
+			 HashSet <T> visited=new HashSet <T>();
+			 q.add(v);
+			 visited.add(v);
+			 while(!q.isEmpty()) {
+				 T w=q.poll();
+				 
+				 System.out.println(w);
+				  
+				 for (T y:graph.get(w)) {
+					 if(!visited.contains(y)) {
+						 visited.add(y);
+						 q.add(y);
+						 }
+					 }
+			 }
+         }
+		 
+		     
+		 
 		}
 	
 	public static void main(String[] args) {
-		Graph<Integer> g=new Graph<Integer>();//creating a directional graph
+		Graph<Integer> g=new Graph<Integer>();
 		g.addEdge(0, 1, false); 
         g.addEdge(0, 4, false); 
         g.addEdge(1, 2, false); 
@@ -68,17 +92,17 @@ public  class GenericGraph  {
         g.addEdge(1, 4, false); 
         g.addEdge(2, 3, false); 
         g.addEdge(3, 4, false); 
+        g.addEdge(2, 0, false);
         System.out.println(g);
-        g.getVertexCount(); 
-        
-        // gives the no of edges in the graph. 
-       System.out.println(g.getEdgesCount(false));  
-  
-        // tells whether the edge is present or not. 
-        g.hasEdge(3, 4,false); 
-  
-        // tells whether vertex is present or not 
-        g.hasVertex(5); 
+        g.Bfs(3);
+        System.out.println();
+        g.Bfs(0);
+        System.out.println();
+        g.Bfs(1);
+        System.out.println();
+        g.Bfs(2);
+        System.out.println();
+        g.Bfs(4);
 
 	}
 
