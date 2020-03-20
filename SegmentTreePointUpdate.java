@@ -12,7 +12,16 @@ public class SegmentTree {//It is implemented as a array heap like in heapsort
        built(arr,ret,0,0,6);
 
         System.out.println(rMin(4,6,arr,ret));//here rMinQ(3,6) returns 15 means 3, 6 both included
-        updateRmq(arr,ret,40,2,0,0,6);
+        updateRmq(arr,ret,5,0);
+        updateRmq(arr,ret,4,1);
+        updateRmq(arr,ret,40,2);
+        updateRmq(arr,ret,100,3);
+        updateRmq(arr,ret,23,4);
+        updateRmq(arr,ret,32,5);
+        updateRmq(arr,ret,1,6);
+        updateRmq(arr,ret,40,2);
+
+
 
     }
     static int left(int t){
@@ -63,23 +72,27 @@ public class SegmentTree {//It is implemented as a array heap like in heapsort
           if(ind>=l&&ind<=ll){r=ll;pi=left(pi);}
           else {l=rr;pi=right(pi);}
         }
-        System.out.println(pi+  "pi");
         ret[pi]=ind;
+        System.out.println(pi+" pi");
+        System.out.println("ret"+Arrays.toString(ret));
         while(pi!=0){
             int si=sibling(pi);
             int p=getParent(pi);
             if(arr[ret[si]]<arr[ret[pi]]){
                 ret[p]=ret[si];
-                System.out.println(ret[p]+" " +si);
-                else{
-                ret[p]=ret[pi];
+                System.out.println(ret[p]+"  "+ si);
             }
+            else{
+                ret[p]=ret[pi];
             }
             pi=p;
             System.out.println(pi);
         }
-
-        System.out.println(Arrays.toString(ret));
+        System.out.println("arr "+Arrays.toString(arr));
+        System.out.println("ret"+Arrays.toString(ret));
+    }
+    static  void updateRmq(int arr[],int ret[],int val,int index){
+        updateRmq(arr,ret,val,index,0,0,arr.length-1);
     }
 
     static int sibling(int p){
