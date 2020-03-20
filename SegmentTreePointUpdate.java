@@ -71,6 +71,9 @@ public class SegmentTree {//It is implemented as a array heap like in heapsort
             if(arr[ret[si]]<arr[ret[pi]]){
                 ret[p]=ret[si];
                 System.out.println(ret[p]+" " +si);
+                else{
+                ret[p]=ret[pi];
+            }
             }
             pi=p;
             System.out.println(pi);
