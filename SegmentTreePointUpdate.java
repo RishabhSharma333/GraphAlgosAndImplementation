@@ -11,7 +11,7 @@ public class SegmentTree {//It is implemented as a array heap like in heapsort
        int ret[]=new int[arr.length*2-1];
        built(arr,ret,0,0,6);
 
-        System.out.println(rMin(4,6,arr,ret));//here rMinQ(3,6) returns 15 means 3, 6 both included
+        System.out.println(rMin(4,6,arr,ret));//here rMinQ(3,6) returns 4 means 3, 6 both included
         updateRmq(arr,ret,5,0);
         updateRmq(arr,ret,4,1);
         updateRmq(arr,ret,40,2);
